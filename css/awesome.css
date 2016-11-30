@@ -39,3 +39,15 @@
 	background-color:transparent;
 	width: 100%;
 }
+
+.blue{
+	background-color:#e0f9ff;
+}
+
+.grey{
+	background-color:#e3e5e5;
+}
+
+.text-justify{
+	text-align: justify;
+}
