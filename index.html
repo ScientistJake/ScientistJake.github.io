@@ -1,4 +1,4 @@
-﻿<html>
+<html>
     <head>
     	<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width">
@@ -12,6 +12,7 @@
     </head>
 
   <body id="page-top"  bgcolor="#e6f2ff">
+  <div class="my-awesome-modal"></div>
   
 	<nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -295,6 +296,7 @@
 
 
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script src="smooth-scroll.js"></script>
 	<script src="js/jquery.easing.min.js"></script>
     <script src="js/scrolling-nav.js"></script>
@@ -307,6 +309,18 @@
           });
           return false;
         });
+      });
+      
+      $('.navbar-toggle').click(function(){
+      	if($('.my-awesome-modal').is(':visible')){
+      		$('.my-awesome-modal').hide();
+      	} else {
+      		$('.my-awesome-modal').show();
+      	}
+      });
+      
+      $('.my-awesome-modal').click(function(){
+      	$('.navbar-toggle').click()
       });
       
       </script>
