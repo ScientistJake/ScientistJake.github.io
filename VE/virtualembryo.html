@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 50%; height: 50% }
+		</style>
+	</head>
+	<body>
+  <script src="js/three.min.js"></script>
+  <script src="js/TrackBallControls.js"></script>
+  <script>
+
+	// set scene
+	var scene = new THREE.Scene();
+	
+	// set camera
+	var camera = new THREE.PerspectiveCamera( 75, (window.innerWidth)/(window.innerHeight), 0.1, 1000 );
+
+	// set renderer
+	var renderer = new THREE.WebGLRenderer();
+	renderer.setSize( (window.innerWidth), (window.innerHeight));
+	document.body.appendChild( renderer.domElement );
+	
+    // create a point light   
+    const pointLight =
+      new THREE.PointLight(0xFFFFFF);
+
+    // set its position
+    pointLight.position.x = 100;
+    pointLight.position.y = 10;
+    pointLight.position.z = -80;
+
+    // add to the scene
+    scene.add(pointLight);
+    
+    //do this for three lights
+    const pointLight2 = 
+    	new THREE.PointLight(0xFFFFFF);
+    pointLight2.position.x = -100;
+    pointLight2.position.y = 10;
+    pointLight2.position.z = -80;
+    scene.add(pointLight2);
+    
+    const pointLight3 = 
+    new THREE.PointLight(0xFFFFFF);
+    pointLight3.position.x = 0;
+    pointLight3.position.y = 10;
+    pointLight3.position.z = 80;
+    scene.add(pointLight3);
+
+    // Set up the spheres vars
+    const RADIUS = 5;
+    const SEGMENTS = 16;
+    const RINGS = 16;
+    
+    // loop through and draw 1000 spheres around the points of a big sphere
+    for(var i = 0; i < 1000; i++){
+    
+		// initial location and radius of sphere
+		var x0 = 0
+		var y0 = 0
+		var z0 = 0
+		var radius = 10
+		
+		// draw the sphere of spheres
+		var u = Math.random();
+   		var v = Math.random();
+   		var theta = 2 * Math.PI * u;
+   		var phi = Math.acos(2 * v - 1);
+   		var x = x0 + (radius * Math.sin(phi) * Math.cos(theta));
+   		var y = y0 + (radius * Math.sin(phi) * Math.sin(theta));
+   		var z = z0 + (radius * Math.cos(phi));
+
+   		var sphereMaterial;
+   		
+   		// logical getting the colors for the territories
+   		if (y > 1 && y < 5 ){
+   			sphereMaterial =	
+   			new THREE.MeshLambertMaterial(
+        	{
+          		color: 0xcc33ff
+       		});
+          	} else if (y >= 5 && y < 8 ) {
+   			sphereMaterial =	
+   			new THREE.MeshLambertMaterial(
+        	{
+          		color: 0x3399ff
+       		});
+       		} else if ( y >=8 ){
+       		sphereMaterial =	
+   			new THREE.MeshLambertMaterial(
+        	{
+          		color: 0x33cc33
+       		});
+          	} else {
+          	sphereMaterial =	
+   			new THREE.MeshLambertMaterial(
+        	{
+          		color: 0xb3b5b7
+       		});
+          	}
+		
+		// draw the individual sphere
+		const sphere = new THREE.Mesh(
+	    	new THREE.SphereGeometry(RADIUS,SEGMENTS,RINGS),
+	    	sphereMaterial);
+	    	
+	    	   		
+   		// set the positions
+   		sphere.position.y = y
+   		sphere.position.x = x
+   		sphere.position.z = z
+
+		// add the sphere to the scene.
+	    scene.add(sphere);
+	}
+	
+	// set camera position
+	camera.position.z = -50;
+	
+	// trackball controls to move the scene
+	var controls;
+	controls = new THREE.TrackballControls( camera );
+			
+	function render() {
+		renderer.render(scene, camera);
+	}
+
+	// controls to set how fast shit pans and stuff
+	controls.rotateSpeed = 2.0;
+	controls.zoomSpeed = 1.2;
+	controls.panSpeed = 0.8;
+
+	controls.noZoom = false;
+	controls.noPan = false;
+
+	controls.staticMoving = true;
+	controls.dynamicDampingFactor = 0.3;
+
+	controls.keys = [ 65, 83, 68 ];
+
+	// once everything is in place this calls the animation
+	var animate = function () {
+		requestAnimationFrame( animate );
+   		controls.update(); 
+		renderer.render(scene, camera);
+	};
+
+	// call it
+	animate();   
+  </script>
+</body>
+</html>
