@@ -27,8 +27,11 @@
 	<body>
 		<div id="container"></div>
 		<div id='territory'></div>
+		<div id='dataTable'></div>
   <script src="js/three.min.js"></script>
   <script src="js/TrackBallControls.js"></script>
+    <script src="js/jquery.csv.min.js"></script>
+
   <script>
   	
 	var container, stats;
@@ -197,13 +200,13 @@
 			if (cellColor === 0xb3b5b7){
 				document.getElementById("territory").innerHTML = "YOU CLICKED AN ECTODERMAL CELL!";
 			} else if (cellColor === 0xcc33ff){
-				document.getElementById("territory").innerHTML = "YOUY CLICKED AN EXTERNAL RING CELL"; 
+				document.getElementById("territory").innerHTML = "YOU CLICKED AN EXTERNAL RING CELL"; 
 			} else if (cellColor === 0x3399ff){
-				document.getElementById("territory").innerHTML = "YOUY CLICKED A CENTRAL RING CELL"; 
+				document.getElementById("territory").innerHTML = "YOU CLICKED A CENTRAL RING CELL"; 
 			} else if (cellColor === 0x33cc33){
-				document.getElementById("territory").innerHTML = "YOUY CLICKED A CENTRAL DOMAIN CELL"; 
+				document.getElementById("territory").innerHTML = "YOU CLICKED A CENTRAL DOMAIN CELL"; 
 			} else if (cellColor === 0xff9900){
-				document.getElementById("territory").innerHTML = "YOUY CLICKED AN APICAL DOMAIN CELL"; 
+				document.getElementById("territory").innerHTML = "YOU CLICKED AN APICAL DOMAIN CELL"; 
 			}
 		}
 	} 
@@ -223,7 +226,31 @@
 		renderer.render(scene, camera);
 		controls.update(); 
 	}
- 
+	
+function readTextFile(file)
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                document.getElementById("dataTable").innerHTML = allText; 
+
+                alert(AllText) 
+            }
+        }
+    }
+    rawFile.send(null);
+};
+
+readTextFile('/Users/jaocbwarner/Documents/Github_repos/ScientistJake.github.io/VE/tables/test.txt');
+
+	
+
   </script>
 </body>
 </html>
