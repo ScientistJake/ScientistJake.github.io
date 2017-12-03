@@ -352,18 +352,20 @@ var modal = document.getElementById('myModal');
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
-var ISHhtml;
-function getExpression(gene){
 
+function getExpression(gene){
+	var ISHhtml;
 	document.getElementById("modalExpression").innerHTML = gene.value;
 	var imageLinksArrGene = imageLinksArr.filter(function(x) {
-    	return x[0] === gene;
+    	return x[0] === gene.value;
 		});
 	for (var row in imageLinksArrGene){
-		ISHhtml += '<h3>Expression for'+imageLinksArrGene[row][0]+'</h3></br>';
-		ISHhtml += '<img src = "images/'+imageLinksArrGene[row][1]+'">'+imageLinksArrGene[row][0]+'</img></br>';
+		var stage = imageLinksArrGene[row][1].split(".")[0]
+		ISHhtml += '<h3>Expression for '+stage+'</h3></br>';
+		ISHhtml += '<img src = "images/'+imageLinksArrGene[row][1]+'"></img></br>';
 	}
-	document.getElementById("ISHPatterns").innerHTML = imageLinksArrGene;
+	console.log(ISHhtml)
+	document.getElementById("ISHPatterns").innerHTML = ISHhtml;
 	modal.style.display = "block";
 }
 // When the user clicks on <span> (x), close the modal
@@ -385,7 +387,6 @@ var annotationsArr = $.csv.toArrays(annotations);
 var imageLinks;
 imageLinks = readTextFile('https://raw.githubusercontent.com/ScientistJake/ScientistJake.github.io/master/VE/tables/images.csv');
 var imageLinksArr = $.csv.toArrays(imageLinks);
-console.log(imageLinksArr) 
 
 
 $(document).ready(function () {
