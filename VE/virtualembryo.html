@@ -68,38 +68,39 @@
 		<div class='intro'><h1>Virtual Embryo!</h1></div>
 		<div id="container"></div>
 		<div id="myModal" class="modal">
-
-	  <!-- Modal content -->
-	  <div class="modal-content">
-	    <span class="close">&times;</span>
-	    <p id='modalExpression'>Some text in the Modal..</p>
-	    <div id='ISHPatterns'></div>
-	  </div>
-
+			<div class="modal-content">
+	    		<span class="close">&times;</span>
+	    		<h2 id='modalGene'>Some text in the Modal..</h2>
+	    		<div id='Plot'></div>
+	    		<div id='ISHPatterns'></div>
+	  		</div>
 		</div>
 		<div>
 			<h2>Click a territory!</h2>
 			<h3 id='territory_click'><h3>
 		</div>
-		<div><table id='dataTable' style='display:none'>
-			<thead>
-			<tr>
-				<th>Plot</th>
-				<th>Gene</th>
-				<th>Nemve1 ID</th>
-				<th>ISH</th>
-				<th>NvERTx.id</th>
-			</tr>
-			</thead>
-			<tbody  id='dataFill'>
-			</tbody>
-		</table></div>
+		<div>
+			<table id='dataTable' style='display:none'>
+				<thead>
+				<tr>
+					<th>Plot</th>
+					<th>Gene</th>
+					<th>Nemve1 ID</th>
+					<th>ISH</th>
+					<th>NvERTx.id</th>
+				</tr>
+				</thead>
+				<tbody  id='dataFill'>
+				</tbody>
+			</table>
+		</div>
 
   <script src="js/three.min.js"></script>
   <script src="js/TrackBallControls.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="js/jquery-csv.js"></script>
   <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script>
   	
 	var container, stats;
@@ -354,18 +355,71 @@ var span = document.getElementsByClassName("close")[0];
 
 
 function getExpression(gene){
-	var ISHhtml;
-	document.getElementById("modalExpression").innerHTML = gene.value;
+	document.getElementById("modalGene").innerHTML = gene.value;
 	var imageLinksArrGene = imageLinksArr.filter(function(x) {
     	return x[0] === gene.value;
 		});
 	for (var row in imageLinksArrGene){
+		var ISHhtml = '';
 		var stage = imageLinksArrGene[row][1].split(".")[0]
 		ISHhtml += '<h3>Expression for '+stage+'</h3></br>';
 		ISHhtml += '<img src = "images/'+imageLinksArrGene[row][1]+'"></img></br>';
 	}
-	console.log(ISHhtml)
 	document.getElementById("ISHPatterns").innerHTML = ISHhtml;
+	
+	var dataPointsArrGene = dataPointsArr.filter(function(x) {
+    	return x[0] === gene.value;
+		});
+	var Warner = dataPointsArrGene[0].slice(1,9).map(parseFloat)
+	var Fisher = dataPointsArrGene[0].slice(9,29).map(parseFloat)
+	var Helm = dataPointsArrGene[0].slice(29,35).map(parseFloat)
+	
+	// This is ugly but I didn't have a better way...
+	var Line = dataPointsArrGene[0].slice(9,11).map(parseFloat)
+	Line.push(dataPointsArrGene[0].slice(35,36).map(parseFloat))
+	Line.push(dataPointsArrGene[0].slice(12,16).map(parseFloat))
+	Line.push(dataPointsArrGene[0].slice(36,37).map(parseFloat))
+	Line.push(dataPointsArrGene[0].slice(17,21).map(parseFloat))
+	Line.push(dataPointsArrGene[0].slice(37,38).map(parseFloat))
+	Line.push(dataPointsArrGene[0].slice(22,29).map(parseFloat))
+	Line.push(dataPointsArrGene[0].slice(38,39).map(parseFloat))
+	Line.push(dataPointsArrGene[0].slice(2,5).map(parseFloat))
+	Line.push(dataPointsArrGene[0].slice(39,40).map(parseFloat))
+	Line.push(dataPointsArrGene[0].slice(6,9).map(parseFloat))
+	Line.push(dataPointsArrGene[0].slice(34,35).map(parseFloat))
+	
+	var LineCat = [].concat.apply([], Line);
+		
+	// pass the data to the plotly traces
+	var trace1 = {
+  		x: [24,48,72,96,120,144,168,192],
+  		y: Warner,
+ 		mode: 'markers',
+ 		type: 'scatter'
+		};
+	var trace2 = {
+  		x: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19],
+  		y: Fisher,
+ 		mode: 'markers',
+ 		type: 'scatter'
+		};
+	var trace3 = {
+  		x: [2,7,12,24,120,240],
+  		y: Helm,
+ 		mode: 'markers',
+ 		type: 'scatter'
+		};	
+	var trace4 = {
+  		x: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,24,48,72,96,120,144,168,192,240],
+  		y: LineCat,
+ 		mode: 'lines',
+ 		type: 'scatter'
+		};
+	//call plotly
+	var plotlyData=[trace1,trace2,trace3,trace4]
+		Plotly.newPlot('Plot', plotlyData);
+	
+	//open the modal
 	modal.style.display = "block";
 }
 // When the user clicks on <span> (x), close the modal
@@ -387,6 +441,10 @@ var annotationsArr = $.csv.toArrays(annotations);
 var imageLinks;
 imageLinks = readTextFile('https://raw.githubusercontent.com/ScientistJake/ScientistJake.github.io/master/VE/tables/images.csv');
 var imageLinksArr = $.csv.toArrays(imageLinks);
+
+var dataPoints;
+dataPoints = readTextFile('https://raw.githubusercontent.com/ScientistJake/ScientistJake.github.io/master/VE/tables/data.csv');
+var dataPointsArr = $.csv.toArrays(dataPoints);
 
 
 $(document).ready(function () {
