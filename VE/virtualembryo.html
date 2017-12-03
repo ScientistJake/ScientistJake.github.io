@@ -230,7 +230,7 @@
 		renderer.setSize( window.innerWidth*.75, window.innerHeight*.75 );
 		container.appendChild( renderer.domElement );
 		
-				//set controls
+		//set controls
 		controls = new THREE.TrackballControls( camera, container);
 		controls.rotateSpeed = 1.0;
 		controls.zoomSpeed = 1.2;
@@ -239,8 +239,7 @@
 		controls.noPan = false;
 		controls.staticMoving = true;
 		controls.dynamicDampingFactor = 0.3;
-		
-		
+				
 		// set up ray to pick cells
 		raycaster = new THREE.Raycaster();
 		mouse = new THREE.Vector2();
@@ -258,7 +257,10 @@
 		onDocumentMouseDown( event );
 	}
 	
-	var territory;
+	/*
+	This function cast a ray with raycaster to find the intersecting objects
+	then, it colors the cell a random color, designates the territory, and builds the table
+	*/
 	function onDocumentMouseDown( event ) {
 		event.preventDefault();
 		var rect = renderer.domElement.getBoundingClientRect();
@@ -293,6 +295,12 @@
 			
 		}
 	} 
+	
+	/* 
+	This function generates a table from the annotations.
+	It's subset by the territory 'clickedTerritory' in onDocumentMouseDown	
+	It builds the table, adds buttons and renders with DataTable
+	*/
 	function generateTable(territory) {
       var html = '';
       var filterArr = annotationsArr.filter(function(x) {
@@ -327,143 +335,139 @@
 		renderer.render(scene, camera);
 		controls.update(); 
 	}
-
-var allText;
-function readTextFile(file)
-{
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
-        {
-            if(rawFile.status === 200 || rawFile.status == 0)
-            {
-              allText = rawFile.responseText;
-            }
-        }
-    }
-    rawFile.send(null);
-    return allText
-};
-
-// Get the modal
-var modal = document.getElementById('myModal');
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-
-function getExpression(gene){
-	document.getElementById("modalGene").innerHTML = gene.value;
-	var imageLinksArrGene = imageLinksArr.filter(function(x) {
-    	return x[0] === gene.value;
-		});
-	for (var row in imageLinksArrGene){
-		var ISHhtml = '';
-		var stage = imageLinksArrGene[row][1].split(".")[0]
-		ISHhtml += '<h3>Expression for '+stage+'</h3></br>';
-		ISHhtml += '<img src = "images/'+imageLinksArrGene[row][1]+'"></img></br>';
-	}
-	document.getElementById("ISHPatterns").innerHTML = ISHhtml;
 	
-	var dataPointsArrGene = dataPointsArr.filter(function(x) {
-    	return x[0] === gene.value;
-		});
-	var Warner = dataPointsArrGene[0].slice(1,9).map(parseFloat)
-	var Fisher = dataPointsArrGene[0].slice(9,29).map(parseFloat)
-	var Helm = dataPointsArrGene[0].slice(29,35).map(parseFloat)
+	//This is the function that reads in the csvs
+	var allText;
+	function readTextFile(file){
+    	var rawFile = new XMLHttpRequest();
+    	rawFile.open("GET", file, false);
+    	rawFile.onreadystatechange = function (){
+       		if(rawFile.readyState === 4){
+            	if(rawFile.status === 200 || rawFile.status == 0){
+              		allText = rawFile.responseText;
+            		}
+        		}
+    		}
+    	rawFile.send(null);
+		return allText
+	};
 	
-	// This is ugly but I didn't have a better way...
-	var Line = dataPointsArrGene[0].slice(9,11).map(parseFloat)
-	Line.push(dataPointsArrGene[0].slice(35,36).map(parseFloat))
-	Line.push(dataPointsArrGene[0].slice(12,16).map(parseFloat))
-	Line.push(dataPointsArrGene[0].slice(36,37).map(parseFloat))
-	Line.push(dataPointsArrGene[0].slice(17,21).map(parseFloat))
-	Line.push(dataPointsArrGene[0].slice(37,38).map(parseFloat))
-	Line.push(dataPointsArrGene[0].slice(22,29).map(parseFloat))
-	Line.push(dataPointsArrGene[0].slice(38,39).map(parseFloat))
-	Line.push(dataPointsArrGene[0].slice(2,5).map(parseFloat))
-	Line.push(dataPointsArrGene[0].slice(39,40).map(parseFloat))
-	Line.push(dataPointsArrGene[0].slice(6,9).map(parseFloat))
-	Line.push(dataPointsArrGene[0].slice(34,35).map(parseFloat))
+	/*
+	Now we make the modal and the functions to fill it
+	*/
+	// Get the modal
+	var modal = document.getElementById('myModal');
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+
+	//This button is made in the dataTable. gene is the value.
+	function getExpression(gene){
 	
-	var LineCat = [].concat.apply([], Line);
+		//filter the links by the gene
+		document.getElementById("modalGene").innerHTML = gene.value;
+			var imageLinksArrGene = imageLinksArr.filter(function(x) {
+    			return x[0] === gene.value;
+			});
 		
-	// pass the data to the plotly traces
-	var trace1 = {
-  		x: [24,48,72,96,120,144,168,192],
-  		y: Warner,
- 		mode: 'markers',
- 		type: 'scatter'
-		};
-	var trace2 = {
-  		x: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19],
-  		y: Fisher,
- 		mode: 'markers',
- 		type: 'scatter'
-		};
-	var trace3 = {
-  		x: [2,7,12,24,120,240],
-  		y: Helm,
- 		mode: 'markers',
- 		type: 'scatter'
-		};	
-	var trace4 = {
-  		x: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,24,48,72,96,120,144,168,192,240],
-  		y: LineCat,
- 		mode: 'lines',
- 		type: 'scatter'
-		};
-	//call plotly
-	var plotlyData=[trace1,trace2,trace3,trace4]
+		// Build the links for the pcitures from the imagelinks
+		for (var row in imageLinksArrGene){
+			var ISHhtml = '';
+			var stage = imageLinksArrGene[row][1].split(".")[0]
+			ISHhtml += '<h3>Expression for '+stage+'</h3></br>';
+			ISHhtml += '<img src = "images/'+imageLinksArrGene[row][1]+'"></img></br>';
+		}
+		//output
+		document.getElementById("ISHPatterns").innerHTML = ISHhtml;
+		
+		//subset the dataPoints by the gene
+		var dataPointsArrGene = dataPointsArr.filter(function(x) {
+    		return x[0] === gene.value;
+			});
+		
+		//pull out each dataframe
+		var Warner = dataPointsArrGene[0].slice(1,9).map(parseFloat)
+		var Fisher = dataPointsArrGene[0].slice(9,29).map(parseFloat)
+		var Helm = dataPointsArrGene[0].slice(29,35).map(parseFloat)
+	
+		// This is ugly but I didn't have a better way...
+		var Line = dataPointsArrGene[0].slice(9,11).map(parseFloat)
+		Line.push(dataPointsArrGene[0].slice(35,36).map(parseFloat))
+		Line.push(dataPointsArrGene[0].slice(12,16).map(parseFloat))
+		Line.push(dataPointsArrGene[0].slice(36,37).map(parseFloat))
+		Line.push(dataPointsArrGene[0].slice(17,21).map(parseFloat))
+		Line.push(dataPointsArrGene[0].slice(37,38).map(parseFloat))
+		Line.push(dataPointsArrGene[0].slice(22,29).map(parseFloat))
+		Line.push(dataPointsArrGene[0].slice(38,39).map(parseFloat))
+		Line.push(dataPointsArrGene[0].slice(2,5).map(parseFloat))
+		Line.push(dataPointsArrGene[0].slice(39,40).map(parseFloat))
+		Line.push(dataPointsArrGene[0].slice(6,9).map(parseFloat))
+		Line.push(dataPointsArrGene[0].slice(34,35).map(parseFloat))
+	
+		//this cats the multi array
+		var LineCat = [].concat.apply([], Line);
+		
+		// pass the data to the plotly traces
+		var trace1 = {
+  			x: [24,48,72,96,120,144,168,192],
+  			y: Warner,
+ 			mode: 'markers',
+ 			type: 'scatter'
+			};
+		var trace2 = {
+  			x: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19],
+  			y: Fisher,
+ 			mode: 'markers',
+ 			type: 'scatter'
+			};
+		var trace3 = {
+  			x: [2,7,12,24,120,240],
+  			y: Helm,
+ 			mode: 'markers',
+ 			type: 'scatter'
+			};	
+		var trace4 = {
+  			x: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,24,48,72,96,120,144,168,192,240],
+  			y: LineCat,
+ 			mode: 'lines',
+ 			type: 'scatter'
+			};
+			
+		//call plotly, it puts it in 'Plot' which is in the modal
+		var plotlyData=[trace1,trace2,trace3,trace4]
 		Plotly.newPlot('Plot', plotlyData);
 	
-	//open the modal
-	modal.style.display = "block";
-}
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
+		//open the modal
+		modal.style.display = "block";
+	}
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+    	modal.style.display = "none";
+	}
 
-var annotations;
-annotations = readTextFile('https://raw.githubusercontent.com/ScientistJake/ScientistJake.github.io/master/VE/tables/annot.csv');
-var annotationsArr = $.csv.toArrays(annotations); 
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+   		if (event.target == modal) {
+        	modal.style.display = "none";
+    	}
+	}
 
-var imageLinks;
-imageLinks = readTextFile('https://raw.githubusercontent.com/ScientistJake/ScientistJake.github.io/master/VE/tables/images.csv');
-var imageLinksArr = $.csv.toArrays(imageLinks);
+	//read and convert to array the annotations csv
+	var annotations;
+	annotations = readTextFile('https://raw.githubusercontent.com/ScientistJake/ScientistJake.github.io/master/VE/tables/annot.csv');
+	var annotationsArr = $.csv.toArrays(annotations); 
+	
+	// read and convert to array the image links
+	var imageLinks;
+	imageLinks = readTextFile('https://raw.githubusercontent.com/ScientistJake/ScientistJake.github.io/master/VE/tables/images.csv');
+	var imageLinksArr = $.csv.toArrays(imageLinks);
 
-var dataPoints;
-dataPoints = readTextFile('https://raw.githubusercontent.com/ScientistJake/ScientistJake.github.io/master/VE/tables/data.csv');
-var dataPointsArr = $.csv.toArrays(dataPoints);
+	// read and convert to array the data file
+	var dataPoints;
+	dataPoints = readTextFile('https://raw.githubusercontent.com/ScientistJake/ScientistJake.github.io/master/VE/tables/data.csv');
+	var dataPointsArr = $.csv.toArrays(dataPoints);
 
-
-$(document).ready(function () {
-
-
-
-//var html = generateTable(territory);
-
-    // build HTML table data from an array (one or two dimensional)
-
-    
-
-//$('#dataTable').DataTable();
-
-
-});
+	// Niiiccceeee....
   </script>
-  <script type="text/javascript">
-
-</script>
 </body>
 </html>
