@@ -44,6 +44,8 @@
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    height: 80%;
+    overflow: scroll;
 }
 
 /* The Close Button */
@@ -362,7 +364,8 @@
 
 	//This button is made in the dataTable. gene is the value.
 	function getExpression(gene){
-	
+		
+		var ISHhtml = '';
 		//filter the links by the gene
 		document.getElementById("modalGene").innerHTML = gene.value;
 			var imageLinksArrGene = imageLinksArr.filter(function(x) {
@@ -371,7 +374,6 @@
 		
 		// Build the links for the pcitures from the imagelinks
 		for (var row in imageLinksArrGene){
-			var ISHhtml = '';
 			var stage = imageLinksArrGene[row][1].split(".")[0]
 			ISHhtml += '<h3>Expression for '+stage+'</h3></br>';
 			ISHhtml += '<img src = "images/'+imageLinksArrGene[row][1]+'"></img></br>';
