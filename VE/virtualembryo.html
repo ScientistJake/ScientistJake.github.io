@@ -62,13 +62,24 @@
     text-decoration: none;
     cursor: pointer;
 }
+.threeDmodelWrapper {
+  text-align: center;
+}
+.threeDmodel{
+	display: inline-block;
+	width: 60vw;
+	height: 60vh;
+}
 		</style>
    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 
 	</head>
 	<body>
 		<div class='intro'><h1>Virtual Embryo!</h1></div>
-		<div id="container"></div>
+		<div class='threeDmodelWrapper'>
+			<div id="container" class="threeDmodel"></div>
+			<p>Scroll to zoom, click and drag to rotate the model.</p>
+		</div>
 		<div id="myModal" class="modal">
 			<div class="modal-content">
 	    		<span class="close">&times;</span>
@@ -119,8 +130,8 @@
 		container = document.getElementById( "container" );
 		
 		//set camera
-		camera = new THREE.PerspectiveCamera( 75, (window.innerWidth*.75)/(window.innerHeight*.75), 0.1, 1000 );
-		camera.position.z = -50;
+		camera = new THREE.PerspectiveCamera( 75, (container.offsetWidth)/(container.offsetHeight), 0.1, 1000 );
+		camera.position.z = -30;
 		
 		//set scene
 		scene = new THREE.Scene();
@@ -229,7 +240,7 @@
 		}
 		
 		renderer = new THREE.WebGLRenderer();
-		renderer.setSize( window.innerWidth*.75, window.innerHeight*.75 );
+		renderer.setSize( container.offsetWidth, container.offsetHeight );
 		container.appendChild( renderer.domElement );
 		
 		//set controls
@@ -266,8 +277,8 @@
 	function onDocumentMouseDown( event ) {
 		event.preventDefault();
 		var rect = renderer.domElement.getBoundingClientRect();
-		mouse.x = ( ( event.clientX - rect.left ) / ( rect.width - rect.left ) ) * 2 - 1;
-		mouse.y = - ( ( event.clientY - rect.top ) / ( rect.bottom - rect.top) ) * 2 + 1;
+		mouse.x = ( ( event.clientX - rect.left ) / ( rect.width ) ) * 2 - 1;
+		mouse.y = - ( ( event.clientY - rect.top ) / ( rect.height) ) * 2 + 1;
 		raycaster.setFromCamera( mouse, camera );
 		var intersects = raycaster.intersectObjects( spheres );
 		if ( intersects.length > 0 ) {
@@ -413,30 +424,46 @@
   			x: [24,48,72,96,120,144,168,192],
   			y: Warner,
  			mode: 'markers',
- 			type: 'scatter'
+ 			type: 'scatter',
+ 			name: 'Warner'
 			};
 		var trace2 = {
   			x: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19],
   			y: Fisher,
  			mode: 'markers',
- 			type: 'scatter'
+ 			type: 'scatter',
+ 			name: 'Fisher'
 			};
 		var trace3 = {
   			x: [2,7,12,24,120,240],
   			y: Helm,
  			mode: 'markers',
- 			type: 'scatter'
+ 			type: 'scatter',
+ 			name: 'Helm'
 			};	
 		var trace4 = {
   			x: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,24,48,72,96,120,144,168,192,240],
   			y: LineCat,
  			mode: 'lines',
- 			type: 'scatter'
+ 			type: 'scatter',
+ 			name: 'Average'
 			};
-			
+		var xaxisTemplate = {
+			title: 'hours post fertilization'
+		}
+		var yaxisTemplate = {
+			title: 'Log2(counts per million)'
+		}
+		
+		var layout = {
+			xaxis: xaxisTemplate,
+			yaxis: yaxisTemplate,
+ 			title:'RNAseq time-series:'
+		};
+		
 		//call plotly, it puts it in 'Plot' which is in the modal
 		var plotlyData=[trace1,trace2,trace3,trace4]
-		Plotly.newPlot('Plot', plotlyData);
+		Plotly.newPlot('Plot', plotlyData, layout);
 	
 		//open the modal
 		modal.style.display = "block";
