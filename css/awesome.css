@@ -43,6 +43,10 @@ padding: 0px 30px 15px 0px!important;
 	width: 0px;
 }
 
+.img-pub{
+	max-height: 75px;
+}
+
 .inner-img-wrapper{
 	background-color:transparent;
 	left: -150px;
