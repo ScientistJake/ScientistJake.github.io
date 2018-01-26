@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html> 
+  <head>
+  <style>
+  .D3SHIT{
+    padding-top: 50px;
+    padding-right: 30px;
+    padding-bottom: 50px;
+    padding-left: 80px;
+    height: 50vh;
+    width:50vw;
+  }
+  </style>
+  </head>
+  <body>
+  	<h1>D3 Scatter - Line Chart</h1>
+  	<div id='container' class='D3SHIT'><!-- D3 chart will appear here! --></div>
+  	<div id='clickTable'><!-- Clicked points will appear here! --></div>
+  </body>
+</html>
+
+  <!-- D3 -->
+  <script src="js/d3.v4.min.js"></script>
+  <script src="js/jquery.min.2.1.3.js"></script>
+  <script type="text/javascript" src="js/jquery.tipsy.js"></script>
+  <link href="css/tipsy.css" rel="stylesheet" type="text/css" />
+  <script>
+	
+	/*
+	 * The Data
+	 */
+	
+	//This fetches the json
+	$.getJSON('http://ircan.unice.fr/ER/ER_plotter/API?100038', function(data) {
+	
+	//extract the values from the json and put them into the array to be plotted
+	var dataset = [];
+	for (i = 0, len = data.regen[0][1].length; i < len; i++){
+		var x = data.regen[0][1][i];
+		var y = data.regen[2][1][i];
+		var toPush = [x,y]
+		dataset.push(toPush)
+	}
+
+	/*
+	 * The Setup
+	 */
+
+	// get the height and width of the target container
+	//set padding for the graph
+	container = document.getElementById( "container" );	
+	
+	//subtracting from the offset to prevent overflow
+	var w = container.offsetWidth-50
+	var h = container.offsetHeight-50
+	var padding = 50;
+
+
+	//This makes a scale. takes the max of the arrays and transforms them linearly
+	//Use padding in the range so its not up on the edge
+	var xScale = d3.scaleLinear()
+    	.domain([-1, d3.max(dataset, function(d) { return d[1]; })])
+    	.range([padding, w- padding]);
+    var yScale = d3.scaleLinear()
+    	.domain([d3.max(dataset, function(d) { return d[0]; }),0])
+    	.range([padding, h- padding]);
+
+	// select the container D3SHIT and set its attributes. add an <svg> tag to it
+	var svg = d3.select(".D3SHIT")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+	
+	/*
+	 * The Plot Drawing Elements
+	 */
+	
+	/* 
+	  You have to select the circles even before they're created
+	  the data function binds data to the circles
+	  the enter function creates the circles
+	  the append function sticks them on
+	  then we set the attributes for each. x,y and r=radius
+	*/
+	
+    svg.selectAll("circle")
+   .data(dataset)
+   .enter()
+   .append("circle")
+   .attr("cx", function(d) {
+        return xScale(d[1]);
+   })
+   .attr("cy", function(d) {
+        return yScale(d[0]);
+   })
+   .attr("r", 6)
+   .on("click", clicked);
+
+	//tipsy handles the tool tip:
+   $('svg circle').tipsy({ 
+        gravity: 'w', 
+        html: true, 
+        title: function() {
+          var d = this.__data__
+          return 'Time:'+d[1]+'<br>Counts:'+d[0]; 
+        }
+   });
+
+    //create a line function
+    //use the same scales
+    var line = d3.line()
+    .x(function(d) { return xScale(d[1]); })
+    .y(function(d) { return yScale(d[0]); });
+    
+   /*
+     append the line function to the svg.
+     note you could put some of these attributes in a class .line and call:
+     .attr("class", "line")
+   */
+   
+	svg.append("path")
+      .datum(dataset)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-width", 1.5)
+      .attr("d", line);
+      
+    /*
+	 * Axes 
+	 */
+
+	//Set up the axis with the scale we made above
+    var yAxis = d3.axisLeft(yScale);
+    var xAxis = d3.axisBottom(xScale).ticks(20, "s");
+    
+    //position them. Use the padding to stay inside the div
+    var xAxisPosition = h-padding
+    var yAxisPosition = padding-10
+    
+    //add the x axis
+	svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0,"+xAxisPosition+")")
+      .call(xAxis);
+    
+    //add the y axis
+    svg.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate("+yAxisPosition+",0)")
+      .call(yAxis)
+
+	/*
+	 * Axis Labels
+	 */
+	 
+	//set the positions
+	var xLabelPositionY = h
+	var xLabelPositionX = w/2
+	var yLabelPositionY = padding -35
+	var yLabelPositionX = 0-(h/2)
+	
+	//add them along with their text
+	//can specify styling as well
+    svg.append("text")             
+      .attr("y", xLabelPositionY)
+      .attr("x", xLabelPositionX)
+      .style("text-anchor", "middle")
+      .style("font-family", "Monospace")
+      .text("Time");
+    
+    //Same for the Y axis.
+    //NOTE: the x and y are inverted because of the rotate!
+    svg.append("text")
+      .attr("y", yLabelPositionY)
+      .attr("x", yLabelPositionX)            
+      .attr("transform", "rotate(-90)") 
+      .style("text-anchor", "middle")
+      .style("font-family", "Monospace")
+      .text("Counts");
+    
+    function clicked(d, i) {
+    
+      // set all to black to 'undo' previous clicks
+      d3.selectAll("circle")
+        .style("fill", "black")
+        .attr("r", 6)
+
+	  // invert the scale to use the find nearest    
+      var xMouse = xScale.invert(d3.mouse(this)[0]),
+          nearest = findNearest(xMouse);
+          
+      document.getElementById("clickTable").innerHTML = "Clicked Datapoints:"+nearest;
+      
+      //change color of the dot  
+      d3.select(this).transition()
+        .style("fill", "red")
+        .attr("r", 12)
+      .transition()
+        .attr("r", 6)
+    }
+    
+    // function to get the nearest data
+    //loops through dataset and compares the difference to mouse data
+    //then finds the closest datapoint
+    function findNearest(xMouse) {
+        var nearest = null,
+            dx = Number.MAX_VALUE;
+        dataset.forEach(function(data) {
+            var xData = data[1],
+                xDiff = Math.abs(xMouse - xData);
+            if (xDiff < dx) {
+                dx = xDiff;
+                nearest = data;
+            }
+        });
+        return nearest;
+    }
+});
+</script>
