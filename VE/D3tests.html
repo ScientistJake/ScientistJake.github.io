@@ -21,7 +21,9 @@
 
   <!-- D3 -->
   <script src="js/d3.v4.min.js"></script>
+  <!-- D3 requires jquery-->
   <script src="js/jquery.min.2.1.3.js"></script>
+  <!-- Tipsy will make the hover label-->
   <script type="text/javascript" src="js/jquery.tipsy.js"></script>
   <link href="css/tipsy.css" rel="stylesheet" type="text/css" />
   <script>
@@ -30,6 +32,7 @@
 	 * The Data
 	 */
 	
+	/*
 	//This fetches the json
 	$.getJSON('http://ircan.unice.fr/ER/ER_plotter/API?100038', function(data) {
 	
@@ -41,6 +44,25 @@
 		var toPush = [x,y]
 		dataset.push(toPush)
 	}
+	*/
+	var dataset = [
+      [ 13.88, -1 ],
+      [ 8.28, 0 ],
+      [ 45.29, 2 ],
+      [ 25.71, 4 ],
+      [ 24.13, 8 ],
+      [ 101.49, 12 ],
+      [ 155.75, 16 ],
+      [ 142.93, 20 ],
+      [ 100.38, 24 ],
+      [ 51.73, 36 ],
+      [ 41.24, 48 ],
+      [ 33.8, 60 ],
+      [ 30.28, 72 ],
+      [ 25.38, 96 ],
+      [ 22.73, 120 ],
+      [ 19.11, 144 ],
+    ]
 
 	/*
 	 * The Setup
@@ -83,6 +105,7 @@
 	  then we set the attributes for each. x,y and r=radius
 	*/
 	
+	
     svg.selectAll("circle")
    .data(dataset)
    .enter()
@@ -95,6 +118,22 @@
    })
    .attr("r", 6)
    .on("click", clicked);
+   
+   /*
+    svg.selectAll("image")
+      .data(dataset)
+      .enter()
+      .append("svg:image")
+      .attr('x', function(d) {
+        return xScale(d[1]);
+      })
+      .attr('y', function(d) {
+        return yScale(d[0]);
+      })
+      .attr('width', 20)
+      .attr('height', 20)
+      .attr("xlink:href", "https://cdn.shopify.com/s/files/1/1061/1924/products/Poop_Emoji_7b204f05-eec6-4496-91b1-351acc03d2c7_grande.png?v=1480481059")
+   */
 
 	//tipsy handles the tool tip:
    $('svg circle').tipsy({ 
@@ -217,5 +256,6 @@
         });
         return nearest;
     }
-});
+//this is the other side of the getJson function
+//});
 </script>
