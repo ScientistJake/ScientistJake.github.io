@@ -242,8 +242,10 @@ padding: 0px 30px 15px 0px!important;
 
 .researchWrapper { 
   overflow:hidden;
+  min-height: 200px;
 }
-.reasearchHeading{
+.researchHeading{
+  display: none;
   text-align: center;
   font-size: 170%;
   color: #737373;
@@ -252,7 +254,6 @@ padding: 0px 30px 15px 0px!important;
   float:left; 
   width:50%;
   min-height:170px;
-  overflow: hidden;
 }
 #researchImgRight{
 	width: 100%;
@@ -264,6 +265,7 @@ padding: 0px 30px 15px 0px!important;
   background-color: white;
   overflow:hidden;
   min-height:170px;
+  min-width: 200px;
 }
 .researchPortfolio-hover:hover {
     opacity: 1;
@@ -295,11 +297,17 @@ padding: 0px 30px 15px 0px!important;
     color: #fff;
 }
 @media screen and (max-width: 650px) {
-   #one { 
+   #researchOne { 
     float: none;
     margin-right:0;
     width:auto; 
   }
+  .researchHeading{
+  display: block;
+  text-align: center;
+  font-size: 170%;
+  color: #737373;
+}
 }
 
 
