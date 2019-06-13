@@ -1,6 +1,12 @@
 /*!
  * Custom CSS for my awesome website
  */
+
+.silhouette{
+    height:200px;
+    width:200px;
+}
+
 .my-awesome-modal {
     position: fixed;
     width: 100vw;
