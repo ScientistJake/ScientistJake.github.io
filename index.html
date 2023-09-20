@@ -5,24 +5,75 @@
     	<!-- Custom CSS & Bootstrap Core CSS - Uses Bootswatch cerulean Theme: http://bootswatch.com/cerulean/ -->
     	<link rel="stylesheet" href="css/cerulean.css"> 
     	<!-- Smooth scrolling -->
-      	<link href="css/scrolling-nav.css" rel="stylesheet">
-      	<!-- Jake's awesome css -->
-      	<link href="css/awesome.css" rel="stylesheet">
+      <link href="css/scrolling-nav.css" rel="stylesheet">
+      <!-- Jake's awesome css -->
+      <link href="css/awesome.css" rel="stylesheet">
       	
-	    
-<<<<<<< HEAD
-	<!-- Global site tag (gtag.js) - Google Analytics -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+      <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+      <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>	    
+	    <!-- Global site tag (gtag.js) - Google Analytics -->
+      <style>
+        body {
+            animation: fadeInAnimation ease 2s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+        }
+        @keyframes fadeInAnimation {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        .random_img {
+          height: 20vw;
+          padding: 10px;
+          opacity: 0;
+        }
+        .random_images {
+          display: flex;
+          justify-content: center;
+          }
 
-=======
->>>>>>> 7f2e200c896c32ae61123063111fe33717f8e3bc
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111736277-1"></script>
-	<script>
- 		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-  		gtag('js', new Date());
+        #random_image1 {
+          animation: fadeInAnimation ease 2s;
+          animation-fill-mode: forwards;
+        }
 
-  		gtag('config', 'UA-111736277-1');
-	</script>
+        #random_image2 {
+          animation: fadeInAnimation ease 2s;
+          animation-delay: 0.5s;
+          animation-fill-mode: forwards;
+        }
+
+        #random_image3 {
+          animation: fadeInAnimation ease 2s;
+          animation-delay: 1s;
+          animation-fill-mode: forwards;
+        }
+
+        @keyframes fadeInAnimation {
+          0% {
+            opacity: 0;
+          }
+
+          100% {
+            opacity: 1;
+          }
+        }
+      </style>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111736277-1"></script>
+      <script>
+ 		   window.dataLayer = window.dataLayer || [];
+		    function gtag(){dataLayer.push(arguments);}
+  		    gtag('js', new Date());
+
+  		    gtag('config', 'UA-111736277-1');
+      </script>
     </head>
 
   <body id="page-top"  bgcolor="#e6f2ff">
@@ -64,31 +115,38 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-	    <div id="mainpage" align="center">
-  			<div style = "position: absolute; top: 200px; left: 50px;">
-  			<h1 style="color: white; font-size:40px"><b>Welcome to the Warner Lab</b></h1>
-  			<p style="color: white; font-size:20px"><em><b>Embryology,</br>Marine Biotechnology</b></p>
+	    <div id="mainpage" class="page" align="center">
+  			<div style = "position: absolute; width:100vw; top: 100px;left: 50%;
+    transform: translate(-50%, 0);">
+  			<h1 style="font-size:40px"><b>Welcome to the Warner Lab</b></h1>
+          <div class="random_images">
+          <img class="random_img" id="random_image1" src="">
+          <img class="random_img" id="random_image2" src="">
+          <img class="random_img" id="random_image3" src="">
+        </div>
+  			<p style="font-size:20px"><em><b>Invertebrate embryology,</br>Marine biotechnology,</br>Evolution</b></p></em>
   			<p><a id="1" href="#about" class="btn btn-primary btn-lg page-scroll">Learn more</a></p>
   			</div>
 		</div>
 
-  <div id="page1" class="page">
+  <div id="page1" class="page" style = "background-color:lightgrey;">
     <a id="about" class="smooth"></a>
-    <div class="container">
+    <div class="container" >
           <div class="row">
-              <div class="col-lg-12 text-center">
+              <div class="col-lg-12 text-center ">
                   <h2 class="section-heading">About</h2>
-                  <img src="img/splash.png" class="img-responsive img-centered" alt="image-alt" ></img>
-                  <p> The Warner Lab is part of the <a href="https://uncw.edu/bio">Biology and Marine Biology Department</a> at <a href="https://uncw.edu">UNC Wilmington</a>. We are located at the UNCW <a href="https://uncw.edu/cms">Center for Marine Science</a>.
-                  -
-                  We use marine invertebrates to study how organisms grow and develop, and how we can leverage biological innovations into new technologies. 
+                  <img src="img/icw.png" class="img-responsive img-centered" alt="image-alt" ></img>
+                  <p class="about-text"></br> The Warner Lab is part of the <a href="https://uncw.edu/bio">Biology and Marine Biology Department</a> at <a href="https://uncw.edu">UNC Wilmington</a>. We are located in Dobo hall on main campus.
+                  </br>-</br>
+                  The Warner lab uses marine invertebrates to study fundemental questions in developmental biology and evolution. We do this primarily by investigating the genetic interactions (gene regulatory networks) that are responsible for cell fate decisions and morphogenesis of early embryos and comparing how these networks evolve accross long evolutionary distances. We use a variety of model organisms in the lab including sea urchins, sea anemones, and corals. To learn more check out some of our ongoing research projects below.
+                  </br>-</br>
+                  Interested in joining the lab? <a href="#prospectives" data-toggle="modal">Find out how to get in touch here!</a>.
               	  </p>
-
               </div>
           </div>
   	</div>
   </div>
-   
+<!--    
   <div id="page2" >
     <a id="research" class="smooth"></a>
     <div class="researchWrapper">
@@ -124,7 +182,123 @@
     </div>
   </div>  
   </div>
-   
+-->
+<div id="page2" class="page" >
+  <a id="research" class="smooth"></a>
+      <section id="portfolio" class="bg-light-gray">
+          <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Research</h2>
+                    <h3 class="section-subheading text-muted">Current projects:</h3>
+               
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#researchModal1" class= "portfolio-link" data-toggle="modal">
+                      <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i>Learn more</i>
+                            </div>
+                        </div>
+                        <img src="img/gastrula.png" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Gene networks of morphogenesis</h4>
+                        <p class="text-muted">Seeking to understand the mechanisms of cell movement in the early embryo</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#researchModal2" class= "portfolio-link" data-toggle="modal">
+                      <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i>Learn more</i>
+                            </div>
+                        </div>
+                        <img src="img/iceberg.png" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Genomic evolution in extreme environments</h4>
+                        <p class="text-muted">Discovering genomic novelties underlying the adaptation of Antarctic echinoderms</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#researchModal3" class= "portfolio-link" data-toggle="modal">
+                      <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i>Learn more</i>
+                            </div>
+                        </div>
+                        <img src="img/spawn.png" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Engineering corals to resist climate change</h4>
+                        <p class="text-muted">Adapting transgenic technologies to better understand coral development and resilience</p>
+                    </div>
+                </div>
+             <!--   
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h3 class="section-subheading text-muted">Other stuff:</h3>
+               
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="https://pokemods.github.io/" class="portfolio-link" target= "none">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i>&#x2197</i>
+                            </div>
+                        </div>
+                        <div class="portfolio-thumbnail-wrapper">
+                          <img src="https://pokemods.github.io/images/English/Drosophila.png" class="portfolio-thumbnail" alt="">
+                          <img src="https://pokemods.github.io/images/English/Elegans.png" class="portfolio-thumbnail" alt="">
+                          <img src="https://pokemods.github.io/images/English/Urchin.png" class="portfolio-thumbnail" alt="">
+                            <img src="https://pokemods.github.io/images/English/Zfish.png" class="portfolio-thumbnail" alt="">
+                        </div>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Pokemodels!</h4>
+                        <p class="text-muted">An educational outreach initiative.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="https://2-BitBio.com" class="portfolio-link" target= "none">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i>&#x2197</i>
+                            </div>
+                        </div>
+                        <img src="img/affinity.png" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>2-BitBio.com</h4>
+                        <p class="text-muted">A blog of bioinformatics tutorials</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="https://github.com/ScientistJake" class="portfolio-link" target="none">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i>&#x2197</i>
+                            </div>
+                        </div>
+                        <img src="img/25231.png" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>github.com/ScientistJake</h4>
+                        <p class="text-muted">All of my code!</p>
+                    </div>
+                </div>
+            </div>
+          -->
+        </div>
+        </section>
+    </div>
+
+<!--
   <div id="page3" class="page" style = "background-color:lightgrey;">
     <a id="people" class="smooth"></a>
     <div class="container">
@@ -144,6 +318,83 @@
           </div>
   	</div>
   </div>
+-->
+  <div id="page3" class="page" style = "background-color:lightgrey;">
+    <a id="people" class="smooth"></a>
+    <section id="team" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">People</h2>
+                    <h3 class="section-subheading text-muted">Prospective students:</h3>
+                    <p class="about-text">Want to join the lab? We're currently recruiting at all levels. For more information on applying, <a href="#prospectives" data-toggle="modal">click here!</a></p>
+                </div>
+                <div class="col-lg-12 text-center">
+                    <h3 class="section-subheading text-muted">Current lab members:</h3>
+                </div>
+            </div>
+            <!--
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                  <img src="img/lab.jpg" style="max-width: 100%"/>
+                    <p class="large text-muted">Osborn Memorial Labs, Yale, September 2017.</p>
+                </div>
+            </div>
+          -->
+            <div class="row">
+              <div class="col-lg-12 text-center">
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <img src="img/team/Warner.jpg" class="img-responsive img-circle team-member-img" alt="Jake Warner">
+                        <h4>Jake Warner</h4>
+                        <p class="text-muted">Principal Investigator</p>
+                        <p class="text-muted">My CV is available <a href="assets/Warner_CV_2023.pdf">here</a>.</p>
+                        <ul class="list-inline social-buttons">
+                            <li><a href="https://twitter.com/ScientistJake" class ="social-link"><i class="fa fa-twitter"></i></a>
+                            <li><a href="https://scholar.google.com/citations?user=xzC6iqQAAAAJ&hl=en" class ="social-link"><i class="fa fa-google"></i></a>
+                            <li><a href="https://github.com/ScientistJake" class ="social-link"><i class="fa fa-github"></i></a>
+                            
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <img src="img/team/Besemer.jpg" class="img-responsive img-circle" alt="">
+                        <h4>Ryan Besemer</h4>
+                        <p class="text-muted">Graduate Student</p>
+                        <ul class="list-inline social-buttons">
+                            
+                            <li><a href="https://twitter.com/besemer_ryan" class ="social-link"><i class="fa fa-twitter"></i></a>
+                                                        
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <img src="img/team/Priest.jpg" class="img-responsive img-circle" alt="">
+                        <h4>Michael Priest</h4>
+                        <p class="text-muted">Graduate Student</p>
+                        <ul class="list-inline social-buttons">
+                            
+                            
+
+                        </ul>
+                    </div>
+                </div>
+              </div>
+            </div>
+              <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h3 class="section-subheading text-muted">Former students:</h3>
+                    <p class="about-text">For a complete list of lab alumni, <a href="#alumni" data-toggle="modal">click here!</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+    </div>
    <!-- 
   <div id="page4" class="page">
     <a id="outreach" class="smooth"></a>
@@ -191,7 +442,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Links</h2>
-                    <h3 class="section-subheading text-muted">Web apps:</h3>
+                    <h3 class="section-subheading text-muted">Other contributions:</h3>
                
                 </div>
             </div>
@@ -211,7 +462,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="http://jacobwarner.net/VE/virtualembryo.html" class="portfolio-link" target= "none">
+                    <a href="VE/virtualembryo.html" class="portfolio-link" target= "none">
                       <div class="portfolio-hover">
                             <div class="portfolio-hover-content">
                                 <i>&#x2197</i>
@@ -224,14 +475,6 @@
                         <p class="text-muted">A 3D model and gene expression database of the Nematostella embryo</p>
                     </div>
                 </div>
-                
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h3 class="section-subheading text-muted">Other stuff:</h3>
-               
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-md-4 col-sm-6 portfolio-item">
                     <a href="https://pokemods.github.io/" class="portfolio-link" target= "none">
                         <div class="portfolio-hover">
@@ -240,10 +483,10 @@
                             </div>
                         </div>
                         <div class="portfolio-thumbnail-wrapper">
-                       		<img src="https://pokemods.github.io/images/English/Drosophila.png" class="portfolio-thumbnail" alt="">
-                        	<img src="https://pokemods.github.io/images/English/Elegans.png" class="portfolio-thumbnail" alt="">
-                    	    <img src="https://pokemods.github.io/images/English/Urchin.png" class="portfolio-thumbnail" alt="">
-                  	        <img src="https://pokemods.github.io/images/English/Zfish.png" class="portfolio-thumbnail" alt="">
+                          <img src="https://pokemods.github.io/images/English/Drosophila.png" class="portfolio-thumbnail" alt="">
+                          <img src="https://pokemods.github.io/images/English/Elegans.png" class="portfolio-thumbnail" alt="">
+                          <img src="https://pokemods.github.io/images/English/Urchin.png" class="portfolio-thumbnail" alt="">
+                            <img src="https://pokemods.github.io/images/English/Zfish.png" class="portfolio-thumbnail" alt="">
                         </div>
                     </a>
                     <div class="portfolio-caption">
@@ -251,35 +494,6 @@
                         <p class="text-muted">An educational outreach initiative.</p>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="https://2-BitBio.com" class="portfolio-link" target= "none">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i>&#x2197</i>
-                            </div>
-                        </div>
-                        <img src="img/affinity.png" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption">
-                        <h4>2-BitBio.com</h4>
-                        <p class="text-muted">A blog of bioinformatics tutorials</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="https://github.com/ScientistJake" class="portfolio-link" target="none">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i>&#x2197</i>
-                            </div>
-                        </div>
-                        <img src="img/25231.png" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption">
-                        <h4>github.com/ScientistJake</h4>
-                        <p class="text-muted">All of my code!</p>
-                    </div>
-                </div>
-            </div>
         </div>
         </section>
     </div>
@@ -291,6 +505,18 @@
                   <h2 class="section-heading">Publications</h2>
              
   					<table align="center" cellpadding="10" cellspacing="10">
+              <tr>
+                <td><img src="img/pubs/volcano.png" class="img-circle img-pub" alt="">
+                </td>
+                <td><p class="text">Desplat Y, <span class="warner">Warner JF</span>, Blake EJ, Vijayan N, Cuvelier M, Blackwelder P, Lopez JV. Morphological and transcriptional effects of crude oil and dispersant exposure on the marine sponge Cinachyrella alloclada. Science of the Total Environment. 2023 Jun 20;878:162832. doi: 10.1016/j.scitotenv.2023.162832. Epub 2023 Mar 15. PMID: 36924960. <a href="https://pubmed.ncbi.nlm.nih.gov/36924960/">PubMed</a></p> 
+                </td>
+              </tr>
+              <tr>
+                <td><img src="img/pubs/Lv.png" class="img-circle img-pub" alt="">
+                </td>
+                <td><p class="text">Oulhen N, Shumpei M, <span class="warner">Warner JF</span>, Wessel G. CRISPR/Cas9 knockin methodology for the sea urchin embryo. Molecular Reproduction and Development. 2023 Feb;90(2):69-72. doi: 10.1002/mrd.23672. <a href="https://pubmed.ncbi.nlm.nih.gov/36719060/">PubMed</a></p> 
+                </td>
+              </tr>
               <tr>
                 <td><img src="img/pubs/pictus.png" class="img-circle img-pub" alt="">
                 </td>
@@ -415,7 +641,8 @@
                         <div class="modal-body">
                             <h2>Gene Networks of Development</h2>
                             <hr class="star-primary">
-                            <p class="text-muted">Gastrulation, the processes by which our embryonic tissue layers physically segregate via coordinated cell movements, is a critical event during embryogenesis. Gastrulation, like many other events during embryogenesis, is coordinated by a regulatory cascade of genetic interactions that we term gene regulatory networks (GRN). In the lab, we use molecular approaches, including CRISPR, live imaging, and embryo manipulation, to develop GRN models and connect them to downstream morphological processes. We do this work primarily in two complementary model systems: the sea urchin Lytechinus variegatus and the sea anemone Nematostella vectensis.</p>
+                            <img src="img/grn_urchin.png" class="img-research-modal img-responsive" alt=""></img>
+                            <p class="about-text">Gastrulation, the processes by which our embryonic tissue layers physically segregate via coordinated cell movements, is a critical event during embryogenesis. Gastrulation, like many other events during embryogenesis, is coordinated by a regulatory cascade of genetic interactions that we term gene regulatory networks (GRN). In this project, we're using the sea urchin embryo as a model to construct high resolution gene regulatory networks of gastrulation. We use a combination of bioinformatics and molecular biology approaches with an emhpasis on imaging. This work is funded by a grant from the National Institues of Health (R15)</p>
                             <ul class="list-inline item-details">
                             </ul>
                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
@@ -437,9 +664,64 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                         <div class="modal-body">
-                            <h2>Marine Biotechnology</h2>
+                            <h2>Genomic evolution in extreme environments</h2>
                             <hr class="star-primary">
-                            <p class="text-muted">Cnidarians, a group of organisms that includes corals, sea anemones, and jellyfish exhibit an extraordinary suite of biological innovations. Cnidarians can regenerate, they make some of the most potent venoms in the animal kingdom, and some are thought to be immortal. The keys to these innovations are encoded in their genomes. In the lab we are using bioinformatic and comparative genomic approaches to identify and investigate previously unknown cnidarian genes for potential biotechnological and biomedical applications.</p>
+                            <img src="img/grn_sterechinus.png" class="img-research-modal img-responsive" alt=""></img>
+                            <p class="text-muted">Antarctic marine invertebrates exhibit extraordinarily slow rates of development from embryo to adult. This feature has arisen repeatedly in independent Antarctic lineages including sea urchins, sea stars, brachiopods, ribbon worms. Whereas slow development was previously assumed to be solely a function of temperature kinetics, recent studies of the Antarctic sea urchin Sterechinus numyeri indicate that rates of embryonic protein synthesis are comparable to temperate sea urchins. Thus, long developmental times are not solely the result of decreased biomolecular activity. Moreover, knowledge of the genomic interactions that drive slow development in any Antarctic marine invertebrate is lacking, effectively hindering our ability to understand the basis of such life-history alterations. In the lab we use the Antarctic sea urchin, Sterechinus neumayeri as a model system for understanding developmental timing in Antarctic invertebrate embryos and more generally, adaptation to the Southern Ocean. S. neumayeri is an ideal model to investigate this relationship as it is one of the best-studied Antarctic marine invertebrates for early life-history stages. Furthermore sea urchins are arguably the best-studied marine invertebrates in terms of early developmental genomics, and have been a major driving force in developing the predictive conceptual frameworks referred to as gene regulatory networks (GRNs). In this project, we use a comparative approach to identify gene regulatory interactions specific to S. neumayeri  to identify the GRN components responsible for adaption to the Southern Ocean and the slow development observed in Antarctic invertebrates. This work is funded by a grant from the National Science Foundation Office of Polar Programs</p>
+                            <ul class="list-inline item-details">
+                            </ul>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+        <div class="portfolio-modal modal fade" id="researchModal3" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h2>Engineering corals to resist climate change</h2>
+                            <hr class="star-primary">
+                            <img src="img/coral_lifecycle.png" class="img-research-modal img-responsive" alt=""></img>
+                            <p class="text-muted">Coral reefs worldwide are experiencing unprecedented losses. Rising sea surface temperatures, declining seawater pH, pollutants, and disease are among the many factors that have led to coral population decline. Given the varied nature of these threats, it is unlikely that a ‘one size fits all’ approach to conservation and restoration will be sufficient. Precision genomics, including genome modification and transgenics, affords new opportunities to develop tailored solutions to these problems. Genomic modification in corals has thus far been hindered by technical difficulties including logistical challenges associated with coral reproduction and the low success rate of traditional transgenic approaches more broadly. Our group has overcome both limitations by successfully spawning corals in captivity year over year, and by developing a novel, high- throughput, gene knock-in strategy which we have demonstrated in several cnidarians including corals. There are potentially transformative applications of this technology: coral transgenic lines could, eventually, be used to drive expression of beneficial gene products that confer tolerance to heat, disease, or other stressors. At the same time, with our bioethics collaborators we are examining the potential ethical, environmental, and policy implications of deploying this technology in corals to generate a framework to guide future stakeholders in its implementation. </p>
+                            <ul class="list-inline item-details">
+                            </ul>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="portfolio-modal modal fade" id="prospectives" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h2>Proespective team members</h2>
+                            <hr class="star-primary">
+                            <h3>Undergraduate students</h3>
+                            <p class="text-muted">Undergraduate students are welcome in the lab! Interested students are encouraged to reach out by emailing Dr. Warner at warnerj@uncw.edu. Typically, students perform research while enrolled in BIO 491 - DIS (directed indivual study) for 1-3 credits. During the summer, students can apply to a paid research assistanship through Dr. Warner. On rare circumstances students can volunteer in the lab although this is discouraged in favor of paid or for credit opportunities.</p>
+                            <h3>Grduate students</h3>
+                            <p class="text-muted">The Warner lab accepts students through the UNCW MS in Marine Biology program, the UNCW MS in Biology program, and the UNCW PhD in Integrative, Comparitive, and Marine Biology program. Prospective students are strongly encouraged to contact Dr. Warner at warnerj@uncw.edu before applying.</p>
+                            <h3>Postdocs</h3>
+                            <p class="text-muted">Potential postdocs are encouraged to reach out to Dr. Warner at warnerj@uncw.edu to discuss opportunities.</p>
                             <ul class="list-inline item-details">
                             </ul>
                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
@@ -455,8 +737,8 @@
 	<script src="js/smooth-scroll.js"></script>
 	<script src="js/jquery.easing.min.js"></script>
 	<script src="js/pdfobject.js"></script>
-    <script src="js/scrolling-nav.js"></script>
-      <script>
+  <script src="js/scrolling-nav.js"></script>
+  <script>
       $('document').ready(function(){
         $('.smooth').on('click', function(){
           $.smoothScroll({
@@ -484,7 +766,33 @@
 			$('.navbar-toggle').click();
 		}      
       });
-      </script>
+  </script>
+  <script>
+    function randImg() {
+      const faculty = [
+    "img/splash_1.png",
+    "img/splash_2.png",
+    "img/splash_3.png",
+    "img/splash_4.png",
+    "img/splash_5.png",
+    "img/splash_6.png",
+    "img/splash_7.png",
+    "img/splash_8.png",
+    "img/splash_9.png"
+      ];
+    var randNums = [];
+    while (randNums.length <= 3) {
+    var randNum = Math.floor(Math.random() * faculty.length);
+    if (randNums.includes(randNum) == false) {
+      randNums.push(randNum)
+    };
+    };
+    document.getElementById("random_image1").src = faculty[randNums[0]];
+    document.getElementById("random_image2").src = faculty[Math.floor(randNums[1])];
+    document.getElementById("random_image3").src = faculty[Math.floor(randNums[2])];
+    }
+    randImg()
+  </script>
 
   </body>
 

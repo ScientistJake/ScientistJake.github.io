@@ -2,11 +2,55 @@
  * Custom CSS for my awesome website
  */
 
+.about-text{
+    margin: 0;
+    font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif; 
+    font-size: 16px;
+
+}
+
+.fa {
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50%;
+  background: #317eac;
+  color: white;
+}
+
+.social-link{
+    font-size:20px;
+}
+
+.fa-twitter:before {
+  content:"\f099";
+
+}
+.fa-google:before {
+  content:"\f1a0";
+
+}
+.fa-github:before {
+  content:"\f09b";
+
+}
+
+.team-member{
+    width:100%;
+    max-width:250px;
+}
+
 .silhouette{
     height:200px;
     width:200px;
 }
 
+.img-research-modal{
+    max-height:500px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;;
+}
 .my-awesome-modal {
     position: fixed;
     width: 100vw;
@@ -30,7 +74,7 @@ padding: 0px 30px 15px 0px!important;
 
 #mainpage{
 	position: relative; 
-	background-image: url(../img/anemone.jpg);
+	/*background-image: url(../img/anemone.jpg);*/
 	height: 100vh;
 	width:100%;
 	top: 0;
@@ -143,9 +187,8 @@ padding: 0px 30px 15px 0px!important;
 
 #portfolio .portfolio-item .portfolio-caption p {
     margin: 0;
-    font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 16px;
-    font-style: italic;
 }
 
 #portfolio * {
@@ -174,7 +217,7 @@ padding: 0px 30px 15px 0px!important;
 
 .portfolio-modal .modal-content p.item-intro {
     margin: 20px 0 30px;
-    font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 16px;
     font-style: italic;
 }
